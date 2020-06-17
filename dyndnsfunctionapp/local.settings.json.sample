@@ -1,0 +1,15 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "AuthUser": "basic auth user",
+    "AuthPassword": "base auth password",
+    "SubscriptionId": "",
+    "ResourceGroupName": "",
+    "ClientId": "service principal client id",
+    "TenantId": "service principal tenant id",
+    "Secret": "service principal secret "
+  }
+}
