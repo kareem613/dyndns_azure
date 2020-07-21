@@ -32,14 +32,18 @@ namespace dyndnsfunctionapp
 
             var updated = false;
             updated = await UpdateRecordSet(zoneName, ip, dnsClient, resourceGroupName, "@");
-            updated = updated || await UpdateRecordSet(zoneName, ip, dnsClient, resourceGroupName, "*");
+            if (updated)
+            {
+                await UpdateRecordSet(zoneName, ip, dnsClient, resourceGroupName, "*", true);
+            }
+            
             return updated;
         }
 
-        private async Task<bool> UpdateRecordSet(string zoneName, string ip, DnsManagementClient dnsClient, string resourceGroupName, string recordSetName)
+        private async Task<bool> UpdateRecordSet(string zoneName, string ip, DnsManagementClient dnsClient, string resourceGroupName, string recordSetName, bool forceUpdate = false)
         {
             var recordSet = dnsClient.RecordSets.Get(resourceGroupName, zoneName, recordSetName, RecordType.A);
-            if (IpChanged(ip, recordSet.ARecords.FirstOrDefault()))
+            if (forceUpdate || IpChanged(ip, recordSet.ARecords.FirstOrDefault()))
             {
                 recordSet.ARecords.Clear();
                 recordSet.ARecords.Add(new ARecord(ip));
